@@ -1,8 +1,10 @@
 // src/routes/Home.tsx
 
-import { Card, CardHeader, CardBody } from "@heroui/react";
+import { Card, CardHeader, CardBody, Button } from "@heroui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className="p-8">
       <Card className="max-w-xl mx-auto shadow-lg">
@@ -16,6 +18,8 @@ export default function Home() {
           </p>
         </CardBody>
       </Card>
+
+      <Button color="primary" onPress={()=>navigate("/about")}>Go to about</Button>
     </div>
   );
 }

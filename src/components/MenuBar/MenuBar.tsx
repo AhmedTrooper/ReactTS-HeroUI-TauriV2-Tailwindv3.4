@@ -1,10 +1,12 @@
-import { Maximize2, Minus, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Maximize2, Minus, X } from "lucide-react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useState } from "react";
 import ThemeToggleButton from "@/ui/ThemeToggleButton";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuBar() {
   const [isFullScreen, setIsFullScreen] = useState<boolean | null>(null);
+  const navigate = useNavigate();
   const startDraggingWindow = async () => {
     await getCurrentWindow().startDragging();
   };
@@ -43,7 +45,7 @@ export default function MenuBar() {
   };
 
   return (
-    <div className="menu-bar fixed top-0 grid left-0 grid-cols-3 w-full   bg-[#191f1f] dark:bg-zinc-900">
+    <div className="menu-bar fixed z-50 top-0 grid left-0 grid-cols-3 w-full   bg-[#191f1f] dark:bg-zinc-900">
       <div className="flex window-control  grid-cols-3 items-start gap-4 p-1 ">
         <X
           onClick={handleWindowClose}
@@ -59,13 +61,26 @@ export default function MenuBar() {
         />
       </div>
       <ul
-        className="window-drag-area col-span-2 grid items-center w-full cursor-grabbing  grid-cols-12 bg-[#191f1f] dark:bg-zinc-900
+        className="window-drag-area col-span-2 grid items-center w-full   grid-cols-12 bg-[#191f1f] dark:bg-zinc-900
 "
       >
+        {/* Dragging window section.... */}
         <li
-          className="col-span-10  w-full h-full"
+          className="col-span-6  w-full h-full cursor-grabbing"
           onMouseDown={startDraggingWindow}
         ></li>
+
+        {/* Navigation section.... */}
+        <li className="grid grid-cols-2 w-fit col-span-4 gap-5 md:gap-15 lg:gap-24 cursor-pointer justify-items-center content-center text-white">
+          <p onClick={() => navigate(-1)}>
+            <ArrowLeft />
+          </p>
+          <p onClick={() => navigate(1)}>
+            {" "}
+            <ArrowRight />
+          </p>
+        </li>
+
         <li className="w-full col-span-2 pr-3 grid items-center justify-items-center">
           <ThemeToggleButton />
         </li>

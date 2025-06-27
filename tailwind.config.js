@@ -1,5 +1,6 @@
 const { heroui } = require("@heroui/react");
 
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [

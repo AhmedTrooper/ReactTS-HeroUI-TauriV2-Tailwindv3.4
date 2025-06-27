@@ -1,8 +1,9 @@
-import { ArrowLeft, ArrowRight, Maximize2, Minus, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Maximize2, Menu, Minus, X } from "lucide-react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useState } from "react";
-import ThemeToggleButton from "@/ui/ThemeToggleButton";
 import { useNavigate } from "react-router-dom";
+import ThemeToggleButton from "../../ui/ThemeToggleButton";
+import NavigationComponent from "./desktop/NavigationComponent";
 
 export default function MenuBar() {
   const [isFullScreen, setIsFullScreen] = useState<boolean | null>(null);
@@ -60,29 +61,38 @@ export default function MenuBar() {
           className="cursor-pointer w-5 text-white"
         />
       </div>
-      <ul
-        className="window-drag-area col-span-2 grid items-center w-full   grid-cols-12 bg-[#191f1f] dark:bg-zinc-900
-"
-      >
+      <ul className="window-drag-area col-span-2 grid items-center w-full   grid-cols-12">
         {/* Dragging window section.... */}
         <li
-          className="col-span-6  w-full h-full cursor-grabbing"
+          className="col-span-2 bg-pink-700  w-full h-full cursor-grabbing"
           onMouseDown={startDraggingWindow}
         ></li>
 
         {/* Navigation section.... */}
-        <li className="grid grid-cols-2 w-fit col-span-4 gap-5 md:gap-15 lg:gap-24 cursor-pointer justify-items-center content-center text-white">
+        <li className="grid grid-cols-2 w-fit  justify-self-center col-span-4 gap-5 md:gap-15 lg:gap-24  justify-items-center content-center text-white">
           <p onClick={() => navigate(-1)}>
-            <ArrowLeft />
+            <ArrowLeft className="cursor-pointer" />
           </p>
           <p onClick={() => navigate(1)}>
             {" "}
-            <ArrowRight />
+            <ArrowRight className="cursor-pointer" />
           </p>
         </li>
 
+        <li
+          className="col-span-2   w-full h-full cursor-grabbing"
+          onMouseDown={startDraggingWindow}
+        ></li>
+
         <li className="w-full col-span-2 pr-3 grid items-center justify-items-center">
           <ThemeToggleButton />
+        </li>
+
+        <li className="w-full  text-white  col-span-2 pr-3 grid items-center justify-items-center">
+          <Menu className="cursor-pointer justify-self-end" />
+          <ul className="absolute h-fit w-fit  justify-self-center left-0 grid gap-1 pt-10 p-2">
+            <NavigationComponent />
+          </ul>
         </li>
       </ul>
     </div>
